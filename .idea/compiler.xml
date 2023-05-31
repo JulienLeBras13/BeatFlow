@@ -9,5 +9,8 @@
         <module name="BeatFlow" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="BeatFlow" target="13" />
+    </bytecodeTargetLevel>
   </component>
 </project>
