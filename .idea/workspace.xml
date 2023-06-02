@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0f71e53-5249-4ea9-ba26-d7736b4c9953" name="Changes" comment="Test">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/beatflow/LibraryControllerUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/beatflow/LibraryViewUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BeatFlow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BeatFlow.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Song.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -53,7 +55,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.40114942",
     "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
   }
@@ -71,6 +73,7 @@
       <workItem from="1685470231322" duration="74000" />
       <workItem from="1685530449158" duration="4384000" />
       <workItem from="1685692921829" duration="2561000" />
+      <workItem from="1685696557914" duration="2490000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore modifié">
       <created>1684926026093</created>
