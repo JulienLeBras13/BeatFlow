@@ -14,10 +14,8 @@
             <Label fx:id="lblTitle" layoutX="81.0" layoutY="198.0" text="Title" />
             <Label fx:id="lblKind" layoutX="81.0" layoutY="264.0" text="Kind" />
             <Label fx:id="lblArtist" layoutX="78.0" layoutY="334.0" text="Artist" />
-            <Label fx:id="lblAlbum" layoutX="75.0" layoutY="406.0" text="Album" />
             <TextField fx:id="txtArtist" layoutX="18.0" layoutY="360.0" />
-            <TextField fx:id="txtAlbum" layoutX="18.0" layoutY="433.0" />
-            <Button fx:id="btnChooseFile" layoutX="41.0" layoutY="488.0" mnemonicParsing="false" text="Choose MP3 file" />
+            <Button fx:id="btnChooseFile" layoutX="41.0" layoutY="488.0" mnemonicParsing="false" onAction="#btnChooseFile_Click" text="Choose MP3 file" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="630.0" prefWidth="906.0">
          <children>

@@ -1,8 +1,14 @@
 package com.example.beatflow;
 
-// Using CSV files
-import java.io.FileWriter;
-import java.io.File;
+// Using file chooser
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
+// Using model files
+import models.Artist;
+import models.Playlist;
+import models.Song;
+import models.Library;
 
 // Using graphical elements
 import javafx.fxml.FXML;
@@ -20,13 +26,6 @@ public class LibraryControllerAdmin {
     @FXML
     private TextField txtAlbum;
 
-
-    // List of music types
-    String typesOfMusic [] = {"Rap", "Classical", "Electro"};
-    // Conversion to arrayList
-    //ArrayList<String> typesList = new ArrayList<>();
-
-    // Tab of playlists declaration (where "Classical, Rap, ..." will be written)
     @FXML
     private TabPane tpListOfPlaylists;
 
@@ -44,7 +43,27 @@ public class LibraryControllerAdmin {
     @FXML
     protected void btnAdd_Click()
     {
-        String line = "";
+        if(txtTitle.getText() != "" || txtArtist.getText() != "")
+        {
+            // Song features
+            String songTitle = txtTitle.getText();
+            String songArtist = txtArtist.getText();
+            String songKind = txtKind.getText();
+
+            // Verifying if artist is in the list
+            Artist thisArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), songArtist);
+
+            // Song creation
+            Song newSong = new Song(songTitle, songKind, thisArtist);
+            BeatFlow.library.getSongs().add(newSong);
+
+        }
+        else
+        {
+            // If the title or artist field are empty
+
+        }
+        /*String line = "";
         String splitBy = ",";
         try {
             File csvFile = new File("/data/songs.csv");
@@ -62,10 +81,15 @@ public class LibraryControllerAdmin {
 
                 }
             }
-            catch(Exception e)
-            {
+        }*/
+    }
 
-            }
-        }
+    //
+    protected void btnChooseFile_Click()
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        Window stage = null;
+        fileChooser.showOpenDialog(stage);
     }
 }
