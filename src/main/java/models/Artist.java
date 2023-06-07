@@ -6,9 +6,12 @@ package models;
 public class Artist {
     private String firstName, lastName, artistName;
 
-    public Artist (String firstName, String lastName, String artistName){
+    public Artist (String artistName, String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.artistName = artistName;
+    }
+    public Artist (String artistName){
         this.artistName = artistName;
     }
 
@@ -29,6 +32,6 @@ public class Artist {
         return lastName;
     }
     public String getArtistName() {
-        return artistName;
+        return this.artistName;
     }
 }
