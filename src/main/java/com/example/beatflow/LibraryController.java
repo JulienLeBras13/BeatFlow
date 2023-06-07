@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.control.TabPane;
 
 public class LibraryController {
-    // List of music types
+    // Library of music types
     String typesOfMusic [] = {"Rap", "Classical", "Electro"};
     // Conversion to arrayList
     ArrayList<String> typesList = new ArrayList<>();
