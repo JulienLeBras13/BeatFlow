@@ -75,7 +75,7 @@ public class BeatFlow extends Application {
      * @param artistName String of the artiste name that we need to find if he's existing
      * @return Artist with the corresponding artistName
      */
-    private Artist findArtist (ArrayList<Artist> artists, String artistName){
+    public static Artist findArtist (ArrayList<Artist> artists, String artistName){
         Artist returnedArtist;
         ArrayList<String> namesList = new ArrayList<>();
 

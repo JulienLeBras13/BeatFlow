@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -9,16 +8,14 @@
   <items>
     <AnchorPane fx:id="apAddMusic" minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="241.0">
          <children>
-            <Button fx:id="btnAdd" layoutX="15.0" layoutY="542.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Add to library" />
+            <Button fx:id="btnAdd" layoutX="15.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnAdd_Click" prefHeight="25.0" prefWidth="156.0" text="Add to library" />
             <TextField fx:id="txtKind" layoutX="19.0" layoutY="290.0" />
             <TextField fx:id="txtTitle" layoutX="18.0" layoutY="222.0" />
             <Label fx:id="lblTitle" layoutX="81.0" layoutY="198.0" text="Title" />
             <Label fx:id="lblKind" layoutX="81.0" layoutY="264.0" text="Kind" />
             <Label fx:id="lblArtist" layoutX="78.0" layoutY="334.0" text="Artist" />
-            <Label fx:id="lblAlbum" layoutX="75.0" layoutY="406.0" text="Album" />
             <TextField fx:id="txtArtist" layoutX="18.0" layoutY="360.0" />
-            <TextField fx:id="txtAlbum" layoutX="18.0" layoutY="433.0" />
-            <Button fx:id="btnChooseFile" layoutX="41.0" layoutY="488.0" mnemonicParsing="false" text="Choose MP3 file" />
+            <Button fx:id="btnChooseFile" layoutX="41.0" layoutY="488.0" mnemonicParsing="false" onAction="#btnChooseFile_Click" text="Choose MP3 file" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="630.0" prefWidth="906.0">
          <children>
@@ -36,11 +33,16 @@
                      </children></AnchorPane>
                 <AnchorPane fx:id="apLibraryView" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ListView fx:id="lvListOfMusics" blendMode="DARKEN" cache="true" editable="true" layoutX="5.0" layoutY="4.0" prefHeight="507.0" prefWidth="943.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ListView>
+                        <SplitPane dividerPositions="0.7828282828282829" layoutX="4.0" layoutY="2.0" orientation="VERTICAL" prefHeight="695.0" prefWidth="945.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="531.0">
+                                 <children>
+                                    <ListView layoutX="3.0" layoutY="3.0" prefHeight="534.0" prefWidth="936.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                          </items>
+                        </SplitPane>
                      </children></AnchorPane>
               </items>
             </SplitPane>
