@@ -85,6 +85,7 @@ public class LibraryControllerAdmin {
     }
 
     //
+    @FXML
     protected void btnChooseFile_Click()
     {
         FileChooser fileChooser = new FileChooser();

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane fx:id="spAdminView" dividerPositions="0.16234887737478412" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="spAdminView" dividerPositions="0.16234887737478412" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.beatflow.LibraryControllerAdmin">
   <items>
     <AnchorPane fx:id="apAddMusic" minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="241.0">
          <children>
