@@ -7,6 +7,7 @@ public class InitController {
     @FXML
     protected void onAdminButtonClick(){
         // TODO : Define how to switch of view
+
     }
 
     @FXML

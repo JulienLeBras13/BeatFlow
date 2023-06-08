@@ -21,12 +21,20 @@ public class BeatFlow extends Application {
     public static Playlist electro = new Playlist("Electro");
     // TODO : generate the two playlist by reading "songs.csv"
 
+    Scene initScene, userScene, adminScene;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+        // InitScene
+        FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        initScene = new Scene(fxmlLoaderInitScene.load(), 1300, 900); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+
+        // UserScene
+        FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+
+
         stage.setTitle("Hello!");
-        stage.setScene(scene);
+        stage.setScene(initScene); // stage.setScene(scene);
         stage.show();
 
         String line;
@@ -72,8 +80,8 @@ public class BeatFlow extends Application {
      * Function to find if the artist is already existing in the database, if not create a new one with the constructor "Artist(String artistName)"
      * and add it to the ArrayList<Artist> artists.
      * @param artists ArrayList<Artist> in which we are searching
-     * @param artistName String of the artiste name that we need to find if he's existing
-     * @return Artist with the corresponding artistName
+     * @param artistName String of the artist name that we need to find if he's existing
+     * @return Artist with the corresponding artistName or a new one
      */
     private Artist findArtist (ArrayList<Artist> artists, String artistName){
         Artist returnedArtist;
