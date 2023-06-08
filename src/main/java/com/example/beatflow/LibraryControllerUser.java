@@ -1,10 +1,11 @@
 package com.example.beatflow;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 public class LibraryControllerUser {
     @FXML
@@ -17,8 +18,12 @@ public class LibraryControllerUser {
     private Button ButtonNewPlaylist;
     @FXML
     private TextField TextZone;
-
-
+    @FXML
+    private Button ButtonAddToPlaylist;
+    @FXML
+    private ListView ListViewMusic;
+    @FXML
+    private Pane PaneInformationsMusic;
     @FXML
     protected void onTextFieldKeyPressed(){
         /**
@@ -33,7 +38,6 @@ public class LibraryControllerUser {
          */
         Button a = new Button("New Playlist");
     }
-
     @FXML
     protected void AddInPlaylist(){
         /**
@@ -43,14 +47,11 @@ public class LibraryControllerUser {
         /**
          * when button selected text Song added
          */
-
     }
     protected void OnClickSort(){
         /**
          *Sort by artist, kind, album in alphabetical order etc.
          */
-
-
     }
 
     /**
@@ -58,6 +59,4 @@ public class LibraryControllerUser {
      *     allows you to buy
      * }
      */
-
-
 }
