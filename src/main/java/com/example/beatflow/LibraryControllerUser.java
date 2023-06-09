@@ -1,11 +1,9 @@
 package com.example.beatflow;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import models.Library;
 
 public class LibraryControllerUser {
     @FXML
@@ -17,26 +15,57 @@ public class LibraryControllerUser {
     @FXML
     private Button ButtonNewPlaylist;
     @FXML
-    private TextField TextZone;
+    private TextField nameText;
     @FXML
     private Button ButtonAddToPlaylist;
     @FXML
-    private ListView ListViewMusic;
+    private ListView<Library> ListViewMusic;
     @FXML
-    private Pane PaneInformationsMusic;
+    private Pane PaneInformationMusic;
+    String UserInput;
+    @FXML
+    private Label Search;
+
+    @FXML
+    protected void ListViewSelectedMusic(){
+        /**
+         * Display music on the list view
+         */
+        ListView<Library> listSongs = new ListView<Library>();
+        /**
+         * to select only on item
+         */
+        listSongs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listSongs.getSelectionModel().getSelectedItems();
+    }
     @FXML
     protected void onTextFieldKeyPressed(){
+
         /**
          * when keyboard pressed display artist,song, kind
          */
-        TextZone.getCharacters();
+
+        /**
+         * if button search pressed display song, artist in list view, buttons actions
+         */
+        Button ButtonSearch = new Button();
+        ButtonSearch.setOnAction(actionEvent -> {
+        });
+
+        /**
+         * retrieving data
+         */
+        String UserInput = nameText.getText();
     }
     @FXML
     protected void CreatNewPlaylist(){
         /**
          * when click on button display songs
          */
-        Button a = new Button("New Playlist");
+        Button creatPlaylist = new Button("New Playlist");
+        creatPlaylist.setOnAction(actionEvent -> {
+
+        });
     }
     @FXML
     protected void AddInPlaylist(){
@@ -47,6 +76,10 @@ public class LibraryControllerUser {
         /**
          * when button selected text Song added
          */
+        Button ButtonAddToPlaylist = new Button();
+        ButtonAddToPlaylist.setOnAction(actionEvent -> {
+
+        });
     }
     protected void OnClickSort(){
         /**
