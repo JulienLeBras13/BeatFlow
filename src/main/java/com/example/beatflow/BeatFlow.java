@@ -22,20 +22,23 @@ public class BeatFlow extends Application {
 
     static Scene initScene, userScene, adminScene;
 
+    // Views size declaration
+    int viewSizeX = 1100;
+    int viewSizeY = 900;
+
     @Override
     public void start(Stage stage) throws IOException {
-        // TODO : Define the size of all scenes
         // InitScene
         FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
         initScene = new Scene(fxmlLoaderInitScene.load(), 1300, 900); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
 
         // AdminScene
         FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        adminScene = new Scene(fxmlLoaderAdminScene.load(), 1300, 900);
+        adminScene = new Scene(fxmlLoaderAdminScene.load(), viewSizeX, viewSizeY);
 
         // UserScene
         FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        userScene = new Scene(fxmlLoaderUserScene.load(), 1300, 900);
+        userScene = new Scene(fxmlLoaderUserScene.load(), viewSizeX, viewSizeY);
 
         stage.setTitle("Hello!");
         stage.setScene(initScene); // stage.setScene(scene);
