@@ -19,14 +19,26 @@ public class BeatFlow extends Application {
     public static Library library = new Library();
     public static Playlist rock = new Playlist("Rock");
     public static Playlist electro = new Playlist("Electro");
-    // TODO : generate the two playlist by reading "songs.csv"
+
+    static Scene initScene, userScene, adminScene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+        // TODO : Define the size of all scenes
+        // InitScene
+        FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        initScene = new Scene(fxmlLoaderInitScene.load(), 1300, 900); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+
+        // AdminScene
+        FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        adminScene = new Scene(fxmlLoaderAdminScene.load(), 1300, 900);
+
+        // UserScene
+        FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        userScene = new Scene(fxmlLoaderUserScene.load(), 1300, 900);
+
         stage.setTitle("Hello!");
-        stage.setScene(scene);
+        stage.setScene(initScene); // stage.setScene(scene);
         stage.show();
 
         String line;
@@ -58,6 +70,26 @@ public class BeatFlow extends Application {
             e.printStackTrace();
         }
 
+        for (Artist artist : library.getArtists()) {
+            for (Song song : library.getSongs()) {
+                if (song.getArtist().getArtistName().equals(artist.getArtistName())){
+                    artist.getSongs().add(song);
+                }
+            }
+        }
+
+        for (Song song : library.getSongs()) {
+            if (song.getKind().equals("Rock")){
+                rock.getPlaylist().add(song);
+            }
+        }
+
+        for (Song song : library.getSongs()) {
+            if (song.getKind().equals("Electro")){
+                electro.getPlaylist().add(song);
+            }
+        }
+
         // Test temp TODO : DELETE THIS TEST WHEN NO LONGER NEEDED !
         System.out.println("Test of the generation of the Library object.");
         System.out.println("");
@@ -66,14 +98,15 @@ public class BeatFlow extends Application {
         System.out.println("Kind of the 4th song : " + library.getSongs().get(3).getKind());
         System.out.println("Artist name of the 1st artist : " + library.getArtists().get(0).getArtistName());
         System.out.println("First name of the 2nd artist : " + library.getArtists().get(2).getFirstName());
+        System.out.println("Title of the 1st song in the list of songs of the 1st Artist : " + library.getArtists().get(0).getSongs().get(0).getTitle());
     }
 
     /**
      * Function to find if the artist is already existing in the database, if not create a new one with the constructor "Artist(String artistName)"
      * and add it to the ArrayList<Artist> artists.
      * @param artists ArrayList<Artist> in which we are searching
-     * @param artistName String of the artiste name that we need to find if he's existing
-     * @return Artist with the corresponding artistName
+     * @param artistName String of the artist name that we need to find if he's existing
+     * @return Artist with the corresponding artistName or a new one
      */
     public static Artist findArtist (ArrayList<Artist> artists, String artistName){
         Artist returnedArtist;
@@ -91,6 +124,21 @@ public class BeatFlow extends Application {
         }
 
         return returnedArtist;
+    }
+
+    public static Song findSong (ArrayList<Song> songs, String title) {
+        Song returnedSong = null;
+        ArrayList<String> titlesList = new ArrayList<>();
+
+        for (Song song : songs) {
+            titlesList.add(song.getTitle());
+        }
+
+        if (titlesList.contains(title)) {
+            returnedSong = songs.get(titlesList.indexOf(title));
+        }
+
+        return returnedSong;
     }
 
     public static void main(String[] args) {

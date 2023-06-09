@@ -1,10 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  * Class Artist that define the firstname, lastname and the artist name.
  */
 public class Artist {
     private String firstName, lastName, artistName;
+    private ArrayList<Song> songs = new ArrayList<>();
 
     public Artist (String artistName, String firstName, String lastName){
         this.firstName = firstName;
@@ -33,5 +36,8 @@ public class Artist {
     }
     public String getArtistName() {
         return this.artistName;
+    }
+    public ArrayList<Song> getSongs(){
+        return this.songs;
     }
 }

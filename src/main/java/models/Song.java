@@ -1,8 +1,5 @@
 package models;
 
-import com.example.beatflow.BeatFlow;
-import javafx.application.Application;
-
 import java.util.ArrayList;
 
 /**
