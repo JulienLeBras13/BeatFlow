@@ -23,7 +23,7 @@ public class BeatFlow extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
         stage.setTitle("Hello!");
         stage.setScene(scene);
