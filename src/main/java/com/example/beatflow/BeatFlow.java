@@ -27,7 +27,7 @@ public class BeatFlow extends Application {
         // TODO : Define the size of all scenes
         // InitScene
         FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        initScene = new Scene(fxmlLoaderInitScene.load(), 1300, 900); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+        initScene = new Scene(fxmlLoaderInitScene.load(), 750, 450); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
 
         // AdminScene
         FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
