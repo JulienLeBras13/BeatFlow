@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.Artist;
-import models.Playlist;
-import models.Song;
-import models.Library;
+import models.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,6 +16,7 @@ public class BeatFlow extends Application {
     public static Library library = new Library();
     public static Playlist rock = new Playlist("Rock");
     public static Playlist electro = new Playlist("Electro");
+    public static ArrayList<Account> accounts = new ArrayList<>();
 
     static Scene initScene, userScene, adminScene;
 
@@ -30,7 +28,7 @@ public class BeatFlow extends Application {
     public void start(Stage stage) throws IOException {
         // InitScene
         FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        initScene = new Scene(fxmlLoaderInitScene.load(), 1300, 900); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+        initScene = new Scene(fxmlLoaderInitScene.load(), 750, 450); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
 
         // AdminScene
         FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
@@ -40,12 +38,31 @@ public class BeatFlow extends Application {
         FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
         userScene = new Scene(fxmlLoaderUserScene.load(), viewSizeX, viewSizeY);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("BeatFlow");
         stage.setScene(initScene); // stage.setScene(scene);
         stage.show();
 
         String line;
         String splitBy = ";";
+
+        // try-catch for reading "data/accounts.csv" and add them to the ArrayList<Artist>
+        try { //parsing a CSV file into BufferedReader class constructor
+            BufferedReader brAccounts = new BufferedReader(new FileReader("data/accounts.csv"));
+            brAccounts.readLine();
+
+            while ((line = brAccounts.readLine()) != null) { //returns a Boolean value
+                boolean admin;
+                String[] buffedAccount = line.split(splitBy);    // use comma as separator
+                if (buffedAccount[2].equals("true")){
+                    admin = true;
+                } else {
+                    admin = false;
+                }
+                accounts.add(new Account(buffedAccount[0], buffedAccount[1], admin));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // try-catch for reading "data/artists.csv" and create new Artist and add them to the ArrayList<Artist>
         try { //parsing a CSV file into BufferedReader class constructor
@@ -102,6 +119,9 @@ public class BeatFlow extends Application {
         System.out.println("Artist name of the 1st artist : " + library.getArtists().get(0).getArtistName());
         System.out.println("First name of the 2nd artist : " + library.getArtists().get(2).getFirstName());
         System.out.println("Title of the 1st song in the list of songs of the 1st Artist : " + library.getArtists().get(0).getSongs().get(0).getTitle());
+        System.out.println("ID : " + accounts.get(0).getId());
+        System.out.println("Password : " + accounts.get(0).getPassword());
+        System.out.println("Admin : " + accounts.get(0).getAdmin());
     }
 
     /**

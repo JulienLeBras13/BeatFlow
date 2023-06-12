@@ -1,0 +1,5 @@
+﻿ID;Password;Admin( 'false' = User , 'true' = Admin)
+Amy;password;true
+François;password;true
+Julien;password;true
+User;password;false
