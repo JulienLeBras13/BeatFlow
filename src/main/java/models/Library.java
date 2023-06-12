@@ -8,11 +8,16 @@ import java.util.ArrayList;
 public class Library {
     private ArrayList<Song> songs = new ArrayList<>();
     private ArrayList<Artist> artists = new ArrayList<>();
+    private ArrayList<Playlist> playlists = new ArrayList<>();
 
     public ArrayList<Artist> getArtists(){
         return this.artists;
     }
     public ArrayList<Song> getSongs(){
         return this.songs;
+    }
+
+    public ArrayList<Playlist> getPlaylists(){
+        return this.playlists;
     }
 }

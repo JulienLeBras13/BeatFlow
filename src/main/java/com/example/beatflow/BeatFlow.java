@@ -110,6 +110,9 @@ public class BeatFlow extends Application {
             }
         }
 
+        library.getPlaylists().add(rock);
+        library.getPlaylists().add(electro);
+
         // Test temp TODO : DELETE THIS TEST WHEN NO LONGER NEEDED !
         System.out.println("Test of the generation of the Library object.");
         System.out.println("");
@@ -122,6 +125,7 @@ public class BeatFlow extends Application {
         System.out.println("ID : " + accounts.get(0).getId());
         System.out.println("Password : " + accounts.get(0).getPassword());
         System.out.println("Admin : " + accounts.get(0).getAdmin());
+        System.out.println("Name of the 1st playlist : " + library.getPlaylists().get(0).getName());
     }
 
     /**
