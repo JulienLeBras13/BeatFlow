@@ -1,61 +1,73 @@
 package com.example.beatflow;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.Library;
 
+import java.util.ArrayList;
+
 public class LibraryControllerUser {
     @FXML
-    private Label Logo;
+    private Label logo;
     @FXML
-    private ImageView ImageAlbum;
+    private ImageView imageAlbum;
     @FXML
-    private Button ButtonSearch;
+    private Button buttonSearch;
     @FXML
-    private Button ButtonNewPlaylist;
+    private Button buttonNewPlaylist;
     @FXML
-    private TextField nameText;
+    private TextField textEnter;
     @FXML
-    private Button ButtonAddToPlaylist;
+    private Button buttonAddToPlaylist;
     @FXML
-    private ListView<Library> ListViewMusic;
+    private ListView<String> listViewTitle;
     @FXML
-    private Pane PaneInformationMusic;
-    String UserInput;
+    private ArrayList<String> selectedPlayList = new  ArrayList();
     @FXML
-    private Label Search;
+    private Button library;
+    @FXML
+    private Pane paneInformationMusic;
+    @FXML
+    private Label search;
+
 
     @FXML
-    protected void ListViewSelectedMusic(){
+    protected void onTextFieldKeyPressed(){
+        /**
+         * creat e empty TextField object
+         */
+       TextField textEnter = new TextField();
+        /**
+         * if button search pressed display song, artist in list view,
+         * buttons actions
+         */
+        Button ButtonSearch = new Button();
+        ButtonSearch.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                /**
+                 * code to execute when button search is pressed
+                 * retrieving data
+                 */
+
+            }
+        });
+    }
+    @FXML
+    protected void showLibraryTitles(){
         /**
          * Display music on the list view
          */
-        ListView<Library> listSongs = new ListView<Library>();
-        /**
-         * to select only on item
-         */
-        listSongs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        listSongs.getSelectionModel().getSelectedItems();
-    }
-    @FXML
-    protected void onTextFieldKeyPressed(){
 
+        /**for (Song song:)
         /**
-         * when keyboard pressed display artist,song, kind
+         * to select only one item
          */
-
-        /**
-         * if button search pressed display song, artist in list view, buttons actions
-         */
-        Button ButtonSearch = new Button();
-        ButtonSearch.setOnAction(actionEvent -> {
-        });
-
-        /**
-         * retrieving data
-         */
-        String UserInput = nameText.getText();
+        //listSongs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //listSongs.getSelectionModel().getSelectedItems();
     }
     @FXML
     protected void CreatNewPlaylist(){
