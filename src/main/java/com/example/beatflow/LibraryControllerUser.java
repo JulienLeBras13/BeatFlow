@@ -1,107 +1,86 @@
 package com.example.beatflow;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import models.Artist;
 import models.Library;
+import models.Song;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LibraryControllerUser {
     @FXML
-    private Label logo;
+    private Label logo, dataTitle,dataNameArtist, search;
     @FXML
-    private ImageView imageAlbum;
-    @FXML
-    private Button buttonSearch;
-    @FXML
-    private Button buttonNewPlaylist;
+    private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist;
     @FXML
     private TextField textEnter;
     @FXML
-    private Button buttonAddToPlaylist;
+    private ListView<String> listViewTitle, Playlists;
+    private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
-    private ListView<String> listViewTitle;
-    @FXML
-    private ArrayList<String> selectedPlayList = new  ArrayList();
-    @FXML
-    private Button library;
+    private ArrayList<Artist> selectedMusic = new ArrayList() ;
     @FXML
     private Pane paneInformationMusic;
     @FXML
-    private Label search;
-
-
-    @FXML
     protected void onTextFieldKeyPressed(){
-        /**
-         * creat e empty TextField object
-         */
+       // creat a textField objet
        TextField textEnter = new TextField();
-        /**
-         * if button search pressed display song, artist in list view,
-         * buttons actions
-         */
-        Button ButtonSearch = new Button();
-        ButtonSearch.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                /**
-                 * code to execute when button search is pressed
-                 * retrieving data
-                 */
+    }
+   protected static void getSong(){
+   }
+    @FXML
+    protected void showLibraryTitles() {
+       // Display song in listview
+        selectedPlayList.clear();
+        selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        //selection one itm
+        for (Song song : selectedPlayList) {
+            listViewTitle.getItems().add(song.getTitle());
+        }
+    }
 
-            }
-        });
+    @FXML
+    protected void showData(){
+        int index = listViewTitle.getSelectionModel().getSelectedIndex();
+        // show data title
+        Song song = selectedPlayList.get(index);
+        dataTitle.setText(song.getTitle());
+        //Show data artis
+        Artist artist = selectedMusic.get(index);
+        dataNameArtist.setText(artist.getArtistName());
+    }
+    /*public ListView<String> getListViewPlaylist(){
+        return this.Playlists;
     }
     @FXML
-    protected void showLibraryTitles(){
-        /**
-         * Display music on the list view
-         */
-
-        /**for (Song song:)
-        /**
-         * to select only one item
-         */
-        //listSongs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        //listSongs.getSelectionModel().getSelectedItems();
+    protected void search(){
+        // compare value inputUser to value in Playlist
+    for(String item : Playlists.getItems()){
+        if(item.toLowerCase().contains((CharSequence) textEnter)){
+            listViewTitle.getItems().add(item);
+        }
     }
+    }*/
     @FXML
     protected void CreatNewPlaylist(){
-        /**
-         * when click on button display songs
-         */
-        Button creatPlaylist = new Button("New Playlist");
-        creatPlaylist.setOnAction(actionEvent -> {
-
-        });
     }
     @FXML
     protected void AddInPlaylist(){
-        /**
-         * Add new song in playlist
-         */
-
-        /**
-         * when button selected text Song added
-         */
-        Button ButtonAddToPlaylist = new Button();
-        ButtonAddToPlaylist.setOnAction(actionEvent -> {
-
-        });
     }
-    protected void OnClickSort(){
-        /**
-         *Sort by artist, kind, album in alphabetical order etc.
-         */
-    }
-
-    /**
-     * protected void onBuyMusique(){
-     *     allows you to buy
-     * }
-     */
+    /*protected void OnClickSort(){
+        // get the reference of the listView
+        ObservableList<String> items = FXCollections.observableArrayList();
+        // Sort the items
+        FXCollections.sort(items, Comparator.naturalOrder());
+        // set the sorted items to the listView
+        listViewTitle.setItems(items);
+    }*/
 }
