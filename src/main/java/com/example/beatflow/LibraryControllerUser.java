@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -23,8 +24,10 @@ public class LibraryControllerUser {
     @FXML
     private TextField textEnter;
     @FXML
-    private ListView<String> listViewTitle, Playlists;
-    private ArrayList<Song> selectedPlayList = new  ArrayList();
+    private ListView<String> listViewTitle;
+    @FXML
+    public static ListView<String> Playlists;
+    private ArrayList<Song> selectedPlayList;
     @FXML
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
     @FXML
@@ -57,10 +60,7 @@ public class LibraryControllerUser {
         Artist artist = selectedMusic.get(index);
         dataNameArtist.setText(artist.getArtistName());
     }
-    /*public ListView<String> getListViewPlaylist(){
-        return this.Playlists;
-    }
-    @FXML
+    /*@FXML
     protected void search(){
         // compare value inputUser to value in Playlist
     for(String item : Playlists.getItems()){
