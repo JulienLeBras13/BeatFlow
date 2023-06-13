@@ -45,7 +45,11 @@
                </font>
             </Label>
             <Label layoutX="17.0" layoutY="45.0" prefHeight="18.0" prefWidth="64.0" text="Title" />
-            <Label fx:id="dataTitle" layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="72.0" />
+            <Label fx:id="dataTitle" layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="177.0" />
+            <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="111.0" text="Artist" />
+            <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="136.0" prefHeight="17.0" prefWidth="163.0" />
+            <Label layoutX="17.0" layoutY="185.0" prefHeight="17.0" prefWidth="52.0" text="Kind" />
+            <Label fx:id="dataKind" layoutX="17.0" layoutY="213.0" prefHeight="17.0" prefWidth="170.0" />
          </children>
       </Pane>
       <Button layoutX="216.0" layoutY="588.0" mnemonicParsing="false" text="Play" />

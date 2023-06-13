@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -13,23 +12,23 @@ import models.Artist;
 import models.Library;
 import models.Song;
 
+import java.nio.file.WatchEvent;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class LibraryControllerUser {
     @FXML
-    private Label logo, dataTitle,dataNameArtist, search;
+    private Label logo, dataTitle,dataNameArtist, dataKind , search;
     @FXML
     private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist;
     @FXML
     private TextField textEnter;
     @FXML
-    private ListView<String> listViewTitle;
-    @FXML
-    public static ListView<String> Playlists;
-    private ArrayList<Song> selectedPlayList;
+    private ListView<String> listViewTitle, Playlists;
+    private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
+
     @FXML
     private Pane paneInformationMusic;
     @FXML
@@ -49,7 +48,6 @@ public class LibraryControllerUser {
             listViewTitle.getItems().add(song.getTitle());
         }
     }
-
     @FXML
     protected void showData(){
         int index = listViewTitle.getSelectionModel().getSelectedIndex();
@@ -57,18 +55,18 @@ public class LibraryControllerUser {
         Song song = selectedPlayList.get(index);
         dataTitle.setText(song.getTitle());
         //Show data artis
-        Artist artist = selectedMusic.get(index);
-        dataNameArtist.setText(artist.getArtistName());
+        dataNameArtist.setText(song.getArtist().getArtistName());
+        //Show data kind
+        dataKind.setText(song.getKind());
+
     }
-    /*@FXML
+    @FXML
     protected void search(){
         // compare value inputUser to value in Playlist
-    for(String item : Playlists.getItems()){
-        if(item.toLowerCase().contains((CharSequence) textEnter)){
-            listViewTitle.getItems().add(item);
-        }
+        // Display song in listview
+        selectedPlayList.clear();
+        Song findedSong = BeatFlow.findSong(selectedPlayList, textEnter.getText());
     }
-    }*/
     @FXML
     protected void CreatNewPlaylist(){
     }
