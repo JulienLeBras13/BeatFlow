@@ -1,28 +1,20 @@
 package com.example.beatflow;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.Account;
 
-import java.io.File;
-
-
 public class InitController {
 
+    @FXML
+    private Button loginBtn;
+    @FXML
+    private Label id, password, errorID, errorPassword;
+    @FXML
+    private TextField idInput, passwordInput;
 
-    @FXML
-    Button loginBtn;
-    @FXML
-    Label id, password, errorID, errorPassword;
-    @FXML
-    TextField idInput, passwordInput;
 
     @FXML
     protected  void onLoginBtnClick(){

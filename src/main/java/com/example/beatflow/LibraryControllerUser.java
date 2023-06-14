@@ -1,30 +1,23 @@
 package com.example.beatflow;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.Artist;
-import models.Library;
+import models.Playlist;
 import models.Song;
 
-import java.nio.file.WatchEvent;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LibraryControllerUser {
     @FXML
     private Label logo, dataTitle,dataNameArtist, dataKind , search;
     @FXML
-    private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist;
+    private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder;
     @FXML
     private TextField textEnter;
     @FXML
-    private ListView<String> listViewTitle, Playlists;
+    private ListView<String> listViewTitle, playlists;
     private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
@@ -36,13 +29,36 @@ public class LibraryControllerUser {
        // creat a textField objet
        TextField textEnter = new TextField();
     }
+
+    @FXML
+    protected void onActualizePlaylist(){
+        playlists.getItems().clear();
+        playlists.getItems().add("library");
+        for (Playlist playlist : BeatFlow.library.getPlaylists()){
+            playlists.getItems().add(playlist.getName());
+        }
+    }
    protected static void getSong(){
    }
     @FXML
-    protected void showLibraryTitles() {
-       // Display song in listview
+    protected void showTitles() {
+        // Display song in listview
         selectedPlayList.clear();
-        selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        listViewTitle.getItems().clear();
+        String playlistName = playlists.getSelectionModel().getSelectedItem();
+        int index;
+
+        if (playlistName.equals("library")) {
+            selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        } else {
+            for (Playlist playlist : BeatFlow.library.getPlaylists()) {
+                if (playlist.getName().equals(playlistName)) {
+                    selectedPlayList = (ArrayList<Song>) BeatFlow.library.getPlaylists().get(BeatFlow.library.getPlaylists().indexOf(playlist)).getPlaylist().clone();
+                    break;
+                }
+            }
+        }
+
         //selection one itm
         for (Song song : selectedPlayList) {
             listViewTitle.getItems().add(song.getTitle());
@@ -73,12 +89,5 @@ public class LibraryControllerUser {
     @FXML
     protected void AddInPlaylist(){
     }
-    /*protected void OnClickSort(){
-        // get the reference of the listView
-        ObservableList<String> items = FXCollections.observableArrayList();
-        // Sort the items
-        FXCollections.sort(items, Comparator.naturalOrder());
-        // set the sorted items to the listView
-        listViewTitle.setItems(items);
-    }*/
+
 }

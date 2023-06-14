@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class BeatFlow extends Application {
     public static Library library = new Library();
-    public static Playlist rock = new Playlist("Rock");
-    public static Playlist electro = new Playlist("Electro");
+    public static Playlist rock = new Playlist("Rock", true);
+    public static Playlist electro = new Playlist("Electro", true);
     public static ArrayList<Account> accounts = new ArrayList<>();
 
     static Scene initScene, userScene, adminScene;
