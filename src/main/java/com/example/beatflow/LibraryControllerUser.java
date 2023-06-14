@@ -18,17 +18,18 @@ import java.util.stream.Collectors;
 
 public class LibraryControllerUser {
     @FXML
-    private Label logo, dataTitle,dataNameArtist, dataKind , search;
+    private Label logo, dataTitle,dataNameArtist, dataKind;
     @FXML
     private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist;
     @FXML
     private TextField textEnter;
     @FXML
-    private ListView<String> listViewTitle, Playlists;
+    private ListView<String> listViewTitle;
     private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
-
+    @FXML
+    private ArrayList Playlists;
     @FXML
     private Pane paneInformationMusic;
     @FXML
@@ -64,14 +65,22 @@ public class LibraryControllerUser {
     protected void search(){
         // compare value inputUser to value in Playlist
         // Display song in listview
+        // TODO : finir la méthode
         selectedPlayList.clear();
         Song findedSong = BeatFlow.findSong(selectedPlayList, textEnter.getText());
+
+
     }
+    // TODO : faire la création de playlist et l'ajout de chanson dans une playlist perso
     @FXML
     protected void CreatNewPlaylist(){
+       ArrayList<Song> newPlaylist = new ArrayList<>();
+
+
     }
     @FXML
     protected void AddInPlaylist(){
+        Playlists.add(selectedMusic);
     }
     /*protected void OnClickSort(){
         // get the reference of the listView

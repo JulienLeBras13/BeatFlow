@@ -34,7 +34,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="349.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
+      <Button fx:id="buttonSearch" layoutX="349.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#search" text="Search" />
       <TextField layoutX="223.0" layoutY="21.0" onKeyPressed="#onTextFieldKeyPressed" prefHeight="26.0" prefWidth="116.0" />
       <ListView fx:id="listViewTitle" layoutX="216.0" layoutY="153.0" onMouseClicked="#showData" prefHeight="369.0" prefWidth="569.0" />
       <Pane layoutX="891.0" layoutY="147.0" prefHeight="255.0" prefWidth="200.0">
@@ -46,7 +46,7 @@
             </Label>
             <Label layoutX="17.0" layoutY="45.0" prefHeight="18.0" prefWidth="64.0" text="Title" />
             <Label fx:id="dataTitle" layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="177.0" />
-            <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="111.0" text="Artist" />
+            <Label layoutX="17.0" layoutY="111.0" text="Artist" />
             <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="136.0" prefHeight="17.0" prefWidth="163.0" />
             <Label layoutX="17.0" layoutY="185.0" prefHeight="17.0" prefWidth="52.0" text="Kind" />
             <Label fx:id="dataKind" layoutX="17.0" layoutY="213.0" prefHeight="17.0" prefWidth="170.0" />
