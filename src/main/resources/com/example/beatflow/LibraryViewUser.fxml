@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="726.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.beatflow.LibraryControllerUser">
+<AnchorPane prefHeight="710.0" prefWidth="1101.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.beatflow.LibraryControllerUser">
    <children>
       <SplitPane dividerPositions="0.9769230769230769" prefHeight="726.0" prefWidth="200.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="719.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="744.0" prefWidth="203.0">
                <children>
                   <Label layoutX="72.0" layoutY="26.0" prefHeight="20.0" prefWidth="47.0" text="Home ">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Label>
-                  <Button accessibleRole="LIST_VIEW" layoutX="35.0" layoutY="556.0" mnemonicParsing="false" text="New Playlist" />
+                  <Button accessibleRole="LIST_VIEW" layoutX="35.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#CreatNewPlaylist" text="New Playlist" />
                   <ListView layoutX="14.0" layoutY="180.0" prefHeight="193.0" prefWidth="163.0" />
                   <Label layoutX="56.0" layoutY="160.0" prefHeight="20.0" prefWidth="79.0" text="Playlists">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="26.0" layoutY="501.0" prefHeight="41.0" prefWidth="124.0" text="Name Playlist" />
-                  <Button layoutX="29.0" layoutY="594.0" mnemonicParsing="false" text="Add to Playlist" />
+                  <TextArea layoutX="26.0" layoutY="503.0" prefHeight="42.0" prefWidth="124.0" />
+                  <Button layoutX="29.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#AddInPlaylist" text="Add to Playlist" />
+                  <Label layoutX="31.0" layoutY="485.0" text="Name Playlist" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="0.0" />
@@ -40,24 +35,25 @@
          </font>
       </Label>
       <Button layoutX="349.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
-      <TextField layoutX="223.0" layoutY="21.0" prefHeight="26.0" prefWidth="116.0" />
-      <ListView layoutX="217.0" layoutY="147.0" prefHeight="369.0" prefWidth="569.0" />
-      <Label layoutX="365.0" layoutY="76.0" text="NamePlaylist" />
-      <Label layoutX="228.0" layoutY="120.0" prefHeight="20.0" prefWidth="116.0" text="Bibliotheque">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
+      <TextField layoutX="223.0" layoutY="21.0" onKeyPressed="#onTextFieldKeyPressed" prefHeight="26.0" prefWidth="116.0" />
+      <ListView fx:id="listViewTitle" layoutX="216.0" layoutY="153.0" onMouseClicked="#showData" prefHeight="369.0" prefWidth="569.0" />
       <Pane layoutX="891.0" layoutY="147.0" prefHeight="255.0" prefWidth="200.0">
          <children>
-            <Label layoutX="29.0" layoutY="14.0" prefHeight="18.0" prefWidth="110.0" text="Informations">
+            <Label layoutX="45.0" layoutY="14.0" prefHeight="18.0" prefWidth="110.0" text="Informations">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Label layoutX="17.0" layoutY="45.0" prefHeight="18.0" prefWidth="64.0" text="Title" />
+            <Label fx:id="dataTitle" layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="177.0" />
+            <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="111.0" text="Artist" />
+            <Label fx:id="dataNameArtist" layoutX="17.0" layoutY="136.0" prefHeight="17.0" prefWidth="163.0" />
+            <Label layoutX="17.0" layoutY="185.0" prefHeight="17.0" prefWidth="52.0" text="Kind" />
+            <Label fx:id="dataKind" layoutX="17.0" layoutY="213.0" prefHeight="17.0" prefWidth="170.0" />
          </children>
       </Pane>
       <Button layoutX="216.0" layoutY="588.0" mnemonicParsing="false" text="Play" />
       <Button layoutX="216.0" layoutY="635.0" mnemonicParsing="false" text="Stop" />
+      <Button fx:id="library" layoutX="226.0" layoutY="117.0" mnemonicParsing="false" onAction="#showLibraryTitles" text="Library" />
    </children>
 </AnchorPane>

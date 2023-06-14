@@ -1,62 +1,84 @@
 package com.example.beatflow;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import models.Artist;
+import models.Library;
+import models.Song;
+
+import java.nio.file.WatchEvent;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LibraryControllerUser {
     @FXML
-    private Label Logo;
+    private Label logo, dataTitle,dataNameArtist, dataKind , search;
     @FXML
-    private ImageView ImageAlbum;
+    private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist;
     @FXML
-    private Button ButtonSearch;
+    private TextField textEnter;
     @FXML
-    private Button ButtonNewPlaylist;
+    private ListView<String> listViewTitle, Playlists;
+    private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
-    private TextField TextZone;
+    private ArrayList<Artist> selectedMusic = new ArrayList() ;
+
     @FXML
-    private Button ButtonAddToPlaylist;
-    @FXML
-    private ListView ListViewMusic;
-    @FXML
-    private Pane PaneInformationsMusic;
+    private Pane paneInformationMusic;
     @FXML
     protected void onTextFieldKeyPressed(){
-        /**
-         * when keyboard pressed display artist,song, kind
-         */
-        TextZone.getCharacters();
+       // creat a textField objet
+       TextField textEnter = new TextField();
+    }
+   protected static void getSong(){
+   }
+    @FXML
+    protected void showLibraryTitles() {
+       // Display song in listview
+        selectedPlayList.clear();
+        selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        //selection one itm
+        for (Song song : selectedPlayList) {
+            listViewTitle.getItems().add(song.getTitle());
+        }
+    }
+    @FXML
+    protected void showData(){
+        int index = listViewTitle.getSelectionModel().getSelectedIndex();
+        // show data title
+        Song song = selectedPlayList.get(index);
+        dataTitle.setText(song.getTitle());
+        //Show data artis
+        dataNameArtist.setText(song.getArtist().getArtistName());
+        //Show data kind
+        dataKind.setText(song.getKind());
+
+    }
+    @FXML
+    protected void search(){
+        // compare value inputUser to value in Playlist
+        // Display song in listview
+        selectedPlayList.clear();
+        Song findedSong = BeatFlow.findSong(selectedPlayList, textEnter.getText());
     }
     @FXML
     protected void CreatNewPlaylist(){
-        /**
-         * when click on button display songs
-         */
-        Button a = new Button("New Playlist");
     }
     @FXML
     protected void AddInPlaylist(){
-        /**
-         * Add new song in playlist
-         */
-
-        /**
-         * when button selected text Song added
-         */
     }
-    protected void OnClickSort(){
-        /**
-         *Sort by artist, kind, album in alphabetical order etc.
-         */
-    }
-
-    /**
-     * protected void onBuyMusique(){
-     *     allows you to buy
-     * }
-     */
+    /*protected void OnClickSort(){
+        // get the reference of the listView
+        ObservableList<String> items = FXCollections.observableArrayList();
+        // Sort the items
+        FXCollections.sort(items, Comparator.naturalOrder());
+        // set the sorted items to the listView
+        listViewTitle.setItems(items);
+    }*/
 }
