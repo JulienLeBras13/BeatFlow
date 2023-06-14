@@ -14,7 +14,7 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Label>
-                  <Button accessibleRole="LIST_VIEW" layoutX="35.0" layoutY="556.0" mnemonicParsing="false" onAction="#CreatNewPlaylist" text="New Playlist" />
+                  <Button fx:id="buttonNewPlaylist" accessibleRole="LIST_VIEW" layoutX="35.0" layoutY="556.0" mnemonicParsing="false" onAction="#CreatNewPlaylist" text="New Playlist" />
                   <ListView fx:id="playlists" layoutX="14.0" layoutY="180.0" onMouseClicked="#showTitles" prefHeight="193.0" prefWidth="163.0" />
                   <Label layoutX="56.0" layoutY="160.0" prefHeight="20.0" prefWidth="79.0" text="Playlists">
                      <font>
@@ -35,8 +35,8 @@
          </font>
       </Label>
       <Button fx:id="buttonSearch" layoutX="349.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#search" text="Search" />
-      <TextField layoutX="223.0" layoutY="21.0" onKeyPressed="#onTextFieldKeyPressed" prefHeight="26.0" prefWidth="116.0" />
-      <ListView fx:id="listViewTitle" layoutX="216.0" layoutY="153.0" onMouseClicked="#showDataLeft" prefHeight="369.0" prefWidth="258.0" />
+      <TextField fx:id="textEnter" layoutX="223.0" layoutY="21.0" prefHeight="26.0" prefWidth="116.0" />
+      <ListView fx:id="listViewLeft" layoutX="216.0" layoutY="153.0" onMouseClicked="#showDataLeft" prefHeight="369.0" prefWidth="258.0" />
       <Pane layoutX="891.0" layoutY="147.0" prefHeight="255.0" prefWidth="200.0">
          <children>
             <Label layoutX="45.0" layoutY="14.0" prefHeight="18.0" prefWidth="110.0" text="Informations">
