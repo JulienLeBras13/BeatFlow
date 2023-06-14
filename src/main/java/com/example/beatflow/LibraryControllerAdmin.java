@@ -3,8 +3,7 @@ package com.example.beatflow;
 // Using file chooser
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -17,13 +16,12 @@ import models.Library;
 
 // Using graphical elements
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class LibraryControllerAdmin {
-    // Graphical objects used
+    // To add a song
     @FXML
     private TextField txtTitle;
     @FXML
@@ -37,19 +35,32 @@ public class LibraryControllerAdmin {
     @FXML
     private Label lblFileChosen;
 
+    // To show or modify songs data
+    @FXML
+    private TextField txtTitleModify;
+    @FXML
+    private TextField txtKindModify;
+    @FXML
+    private TextField txtArtistModify;
+    @FXML
+    private Button btnUpdate;
+
+    // To delete a song
+    @FXML
+    private Button btnDelete;
+
+    // Showing songs
     @FXML
     private ListView lvSongsList;
 
-    @FXML
-    private TabPane tpListOfPlaylists;
+    // Elements to use the listview
+        // ArrayList for types of music
+    private ArrayList<Song> selTypeOfMusic = new  ArrayList();
+        //
 
-    // Filling of the tab
-    /*for(int iTabFilling = 0; iTabFilling < typesList.size(); iTabFilling++)
-    {
-
-    }*/
 
     /**
+     * Action on the "Add to library" button click
      * Function that creates a new Song object with user written features
      * @return void
      */
@@ -82,9 +93,19 @@ public class LibraryControllerAdmin {
             lblError.setTextFill((Paint.valueOf("red")));
             lblError.setVisible(true);
         }
+
+        // Clearing the list
+        lvSongsList.getItems().clear();
+        // Updating songs list
+        selTypeOfMusic.clear();
+        selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        for (Song song0 : selTypeOfMusic) {
+            lvSongsList.getItems().add(song0.getTitle());
+        }
     }
 
     /**
+     * Action on the "Choose MP3 file" button click
      * Function which open a file chooser to find the MP3 file to add to the database.
      * @return void
      */
@@ -112,7 +133,8 @@ public class LibraryControllerAdmin {
     }
 
     /**
-     * Function that search into Song list to find the user nearest value
+     * Action on the "Search" button click
+     * Function that searches into Song list to find the user nearest value
      * @return void
      */
     @FXML
@@ -121,18 +143,104 @@ public class LibraryControllerAdmin {
         // Getting user searched value
         String searchedValue = txtSearch.getText().toString();
 
+        // Clearing the list
+        lvSongsList.getItems().clear();
+
+        // Activating delete function
+        btnDelete.setVisible(true);
+
         // Searching music title
         if(BeatFlow.findSong(BeatFlow.library.getSongs(), searchedValue) != null)
         {
+
             // If song is found
             lvSongsList.getItems().add(lvSongsList.getItems().size(), searchedValue);
 
         }
-        if(searchedValue == "")
+        // if the song isn't found
+        else if(txtSearch.getText().trim().isEmpty())
         {
-
+            // Display song in listview
+            selTypeOfMusic.clear();
+            selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+            // Selection one item
+            for (Song song : selTypeOfMusic) {
+                lvSongsList.getItems().add(song.getTitle());
+            }
         }
     }
 
+    /**
+     * Action on the click on a song into the songs list
+     * Function that the goal is to show songs data into the Textfields on
+     *  the right of the graphical view, then we can modify it
+     * @return void
+     */
+    @FXML
+    protected void lvSongsList_Click()
+    {
+        // Identifying song in the list
+        int index = lvSongsList.getSelectionModel().getSelectedIndex();
+        Song song = selTypeOfMusic.get(index);
 
+        // Show data into Textfields
+        txtTitleModify.setText(song.getTitle());
+        txtArtistModify.setText(song.getArtist().getArtistName());
+        txtKindModify.setText(song.getKind());
+    }
+
+    /**
+     * Action on the "Delete song" button click
+     * Function which is used to delete a song
+     * @return void
+     */
+    @FXML
+    protected void btnDelete_Click()
+    {
+        // Identifying the song then deleting
+        int index = lvSongsList.getSelectionModel().getSelectedIndex();
+        Song song = selTypeOfMusic.get(index);
+        BeatFlow.library.getSongs().remove(song);
+
+        // Clearing the list
+        lvSongsList.getItems().clear();
+        // Updating songs list
+        selTypeOfMusic.clear();
+        selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        for (Song song1 : selTypeOfMusic) {
+            lvSongsList.getItems().add(song1.getTitle());
+        }
+    }
+
+    /**
+     * Action on the "Update data" button click
+     * Function which the purpose is to update data songs from user inputs
+     * @return void
+     */
+    @FXML
+    protected void btnUpdate_Click()
+    {
+        // Receiving data inputs
+        String userTitle = txtTitleModify.getText();
+        String userKind = txtKindModify.getText();
+        Artist userArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), txtArtistModify.getText());
+
+        // Identifying the song then deleting
+        int index = lvSongsList.getSelectionModel().getSelectedIndex();
+        Song song = selTypeOfMusic.get(index);
+
+        // Modifying songs data
+        BeatFlow.library.getSongs().get(index).setTitle(userTitle);
+        BeatFlow.library.getSongs().get(index).setKind(userKind);
+        BeatFlow.library.getSongs().get(index).setArtist(userArtist);
+
+        // Clearing the list
+        lvSongsList.getItems().clear();
+        // Updating songs list
+        selTypeOfMusic.clear();
+        selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+        for (Song song2 : selTypeOfMusic) {
+            lvSongsList.getItems().add(song2.getTitle());
+        }
+    }
 }
