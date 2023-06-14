@@ -1,6 +1,11 @@
 package com.example.beatflow;
 
 // Using file chooser
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -15,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 
+import java.io.File;
+
 public class LibraryControllerAdmin {
     // Graphical objects used
     @FXML
@@ -24,7 +31,14 @@ public class LibraryControllerAdmin {
     @FXML
     private TextField txtArtist;
     @FXML
-    private TextField txtAlbum;
+    private TextField txtSearch;
+    @FXML
+    private Label lblError;
+    @FXML
+    private Label lblFileChosen;
+
+    @FXML
+    private ListView lvSongsList;
 
     @FXML
     private TabPane tpListOfPlaylists;
@@ -35,20 +49,19 @@ public class LibraryControllerAdmin {
 
     }*/
 
-    /*
-     * Function name : btnAdd_Click
-     * Creation date : 31.05.2023
-     * Function goal : Adding a music on the CSV file with the user written values
-     * */
+    /**
+     * Function that creates a new Song object with user written features
+     * @return void
+     */
     @FXML
     protected void btnAdd_Click()
     {
-        if(txtTitle.getText() != "" || txtArtist.getText() != "")
+        if(!txtTitle.getText().isEmpty() && !txtArtist.getText().isEmpty())
         {
             // Song features
-            String songTitle = txtTitle.getText();
-            String songArtist = txtArtist.getText();
-            String songKind = txtKind.getText();
+            String songTitle = txtTitle.getText().toString();
+            String songArtist = txtArtist.getText().toString();
+            String songKind = txtKind.getText().toString();
 
             // Verifying if artist is in the list
             Artist thisArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), songArtist);
@@ -57,40 +70,69 @@ public class LibraryControllerAdmin {
             Song newSong = new Song(songTitle, songKind, thisArtist);
             BeatFlow.library.getSongs().add(newSong);
 
+            // Song created
+            lblError.setText("No error message");
+            lblError.setTextFill((Paint.valueOf("green")));
+            lblError.setVisible(true);
         }
         else
         {
             // If the title or artist field are empty
-
+            lblError.setText("Error message : \n No title or no artist \n chosen");
+            lblError.setTextFill((Paint.valueOf("red")));
+            lblError.setVisible(true);
         }
-        /*String line = "";
-        String splitBy = ",";
-        try {
-            File csvFile = new File("/data/songs.csv");
-            if(csvFile.isFile())
-            {
-                // Opening CSV file
-                FileWriter csvWriter = new FileWriter("/data/songs.csv");
-
-                // Adding to csvWriter the content
-                csvWriter.append(String.join(txtTitle.getText(), ",", txtKind.getText(), ",", txtAlbum.getText()));
-
-                // Verification that title and .mp3 fields aren't empty
-                if (txtTitle.getText() != "")
-                {
-
-                }
-            }
-        }*/
     }
 
-    //
+    /**
+     * Function which open a file chooser to find the MP3 file to add to the database.
+     * @return void
+     */
     @FXML
     protected void btnChooseFile_Click()
     {
+        // Opening file chooser
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Choose a MP3 file");
         Window stage = null;
-        fileChooser.showOpenDialog(stage);
+
+        // Sorting file extensions
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 Files", "*.mp3"));
+
+        // MP3 File received
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile == null) {
+            lblFileChosen.setText("No file selected");
+        }
+        else
+        {
+            lblFileChosen.setText(selectedFile.getName());
+            // TODO : Stock the mp3 files
+        }
     }
+
+    /**
+     * Function that search into Song list to find the user nearest value
+     * @return void
+     */
+    @FXML
+    protected void btnSearch_Click()
+    {
+        // Getting user searched value
+        String searchedValue = txtSearch.getText().toString();
+
+        // Searching music title
+        if(BeatFlow.findSong(BeatFlow.library.getSongs(), searchedValue) != null)
+        {
+            // If song is found
+            lvSongsList.getItems().add(lvSongsList.getItems().size(), searchedValue);
+
+        }
+        if(searchedValue == "")
+        {
+
+        }
+    }
+
+
 }

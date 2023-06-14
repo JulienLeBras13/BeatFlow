@@ -16,7 +16,6 @@ public class Library {
     public ArrayList<Song> getSongs(){
         return this.songs;
     }
-
     public ArrayList<Playlist> getPlaylists(){
         return this.playlists;
     }
