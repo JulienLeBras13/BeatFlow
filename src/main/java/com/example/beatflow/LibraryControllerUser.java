@@ -9,11 +9,14 @@ import models.Song;
 
 import java.util.*;
 
+/**
+ * Class that controls the view and allows you to perform actions for example to search for music
+ */
 public class LibraryControllerUser {
     @FXML
-    private Label logo, labelOutp1,labelOutp2, labelOutp3, search, label1, label2, label3;
+    private Label  labelOutp1,labelOutp2, labelOutp3, label1, label2, label3;
     @FXML
-    private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder;
+    private Button buttonSearch, buttonAddToPlaylist, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder;
     @FXML
     private TextField textEnter, nomPlaylist;
     @FXML
@@ -25,13 +28,9 @@ public class LibraryControllerUser {
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
     String sorted = "unsorted";
 
-    @FXML
-    private Pane paneInformationMusic;
-    @FXML
-    protected void onTextFieldKeyPressed(){
-       // creat a textField objet
-       TextField textEnter = new TextField();
-    }
+    /**
+     * Action actualize fix Playlist (rock, Librery and electro)
+     */
     @FXML
     protected void onActualizePlaylist(){
         // actualize Playlist in listView
@@ -41,6 +40,11 @@ public class LibraryControllerUser {
             playlists.getItems().add(playlist.getName());
         }
     }
+
+    /**
+     * This methode display the title in a playlist
+     * Library is a default view
+     */
     @FXML
     protected void showTitles() {
         // Display song in listview
@@ -70,23 +74,32 @@ public class LibraryControllerUser {
             for (Song song : chargedPlaylist) {
                 listViewRight.getItems().add(song.getTitle());
             }
+        }//selected one item
+        for(Song song :selectedPlayList){
+            listViewLeft.getItems().add(song.getTitle());
         }
     }
+
+    /**
+     * Display de data of the selected playlist
+     */
     @FXML
     protected void showDataLeft(){
         for (Song song : selectedPlayList){
             if (song.getTitle().equals(listViewLeft.getSelectionModel().getSelectedItem())){
                 labelOutp1.setText(song.getTitle());
+                label1.setText("Title");
                 labelOutp2.setText(song.getArtist().getArtistName());
+                label2.setText("Artist");
                 labelOutp3.setText(song.getKind());
+                label3.setText("Kind");
             }
         }
     }
-    protected void showDataSearch(){
-        for(Song song : BeatFlow.library.getSongs()){
 
-        }
-    }
+    /**
+     * Display the data of the user playlist
+     */
     @FXML
     protected void showDataRight(){
         int index = listViewRight.getSelectionModel().getSelectedIndex();
@@ -98,6 +111,11 @@ public class LibraryControllerUser {
         //Show data kind
         labelOutp3.setText(song.getKind());
     }
+
+    /**
+     * Action button search pressed
+     * That search into Playlist the input of the user (Song or artist)
+     */
     @FXML
     protected void search(){
         //clear listviews
@@ -108,22 +126,37 @@ public class LibraryControllerUser {
             if (song.getTitle().equals(textEnter.getText())){
                 listViewLeft.getItems().add(song.getTitle());
                 labelOutp1.setText(song.getTitle());
+                label1.setText("Title");
                 labelOutp2.setText(song.getArtist().getArtistName());
+                label2.setText("Artist");
                 labelOutp3.setText(song.getKind());
+                label3.setText("Kind");
                 break;
             } else if (song.getArtist().getArtistName().equals(textEnter.getText())) {
                 listViewLeft.getItems().add(song.getTitle());
                 labelOutp1.setText(song.getArtist().getFirstName());
+                label1.setText("First Name");
                 labelOutp2.setText(song.getArtist().getLastName());
-                labelOutp3.setText(song.getKind());
+                label2.setText("Last Name");
+                labelOutp3.setText(song.getArtist().getArtistName());
+                label3.setText(" Artist");
             }
-
         }
-      }
+    }
+
+    /**
+     * Action button new playlist pressed
+     * Allows to create a playlist
+     */
     @FXML
     protected void CreatNewPlaylist(){
         BeatFlow.library.getPlaylists().add(new Playlist(nomPlaylist.getText()));
     }
+
+    /**
+     * Actions button Add to playlist pressed
+     * Allows user to add a song in his playlist
+     */
     @FXML
     protected void AddInPlaylist(){
         // control if playlist is not Fix
@@ -143,6 +176,10 @@ public class LibraryControllerUser {
         }
     }
 
+    /**
+     * Action button Alphabetic sort pressed
+     * sorted the son on alphabetic order
+     */
     @FXML
     protected void alphabeticalOrder(){
         switch (sorted){
