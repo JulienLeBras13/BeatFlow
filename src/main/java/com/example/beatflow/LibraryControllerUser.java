@@ -11,7 +11,7 @@ import java.util.*;
 
 public class LibraryControllerUser {
     @FXML
-    private Label logo, dataTitle,dataNameArtist, dataKind , search;
+    private Label logo, labelOutp1,labelOutp2, labelOutp3, search, label1, label2, label3;
     @FXML
     private Button buttonSearch, buttonAddToPlaylist, library, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder;
     @FXML
@@ -41,7 +41,6 @@ public class LibraryControllerUser {
             playlists.getItems().add(playlist.getName());
         }
     }
-
     @FXML
     protected void showTitles() {
         // Display song in listview
@@ -72,19 +71,20 @@ public class LibraryControllerUser {
                 listViewRight.getItems().add(song.getTitle());
             }
         }
-        //selection one itm
-        for (Song song : selectedPlayList) {
-            listViewLeft.getItems().add(song.getTitle());
-        }
     }
     @FXML
     protected void showDataLeft(){
         for (Song song : selectedPlayList){
             if (song.getTitle().equals(listViewLeft.getSelectionModel().getSelectedItem())){
-                dataTitle.setText(song.getTitle());
-                dataNameArtist.setText(song.getArtist().getArtistName());
-                dataKind.setText(song.getKind());
+                labelOutp1.setText(song.getTitle());
+                labelOutp2.setText(song.getArtist().getArtistName());
+                labelOutp3.setText(song.getKind());
             }
+        }
+    }
+    protected void showDataSearch(){
+        for(Song song : BeatFlow.library.getSongs()){
+
         }
     }
     @FXML
@@ -92,33 +92,34 @@ public class LibraryControllerUser {
         int index = listViewRight.getSelectionModel().getSelectedIndex();
         // show data title
         Song song = selectedPlayList.get(index);
-        dataTitle.setText(song.getTitle());
+        labelOutp1.setText(song.getTitle());
         //Show data artis
-        dataNameArtist.setText(song.getArtist().getArtistName());
+        labelOutp2.setText(song.getArtist().getArtistName());
         //Show data kind
-        dataKind.setText(song.getKind());
-
+        labelOutp3.setText(song.getKind());
     }
     @FXML
     protected void search(){
         //clear listviews
         listViewLeft.getItems().clear();
         listViewRight.getItems().clear();
-
-        String findedSong = textEnter.getText().toString();
-        // searching song in listview
-        if (BeatFlow.findSong(BeatFlow.library.getSongs(), findedSong) != null) {
-            listViewLeft.getItems().add(listViewLeft.getItems().size(),textEnter.getText());
-        }
-        // code for empty textField
-        else if (textEnter.getText().trim().isEmpty()){
-            selectedPlayList.clear();
-            selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
-            for (Song song : selectedPlayList){
+        // searching song and artist
+        for (Song song: BeatFlow.library.getSongs()){
+            if (song.getTitle().equals(textEnter.getText())){
                 listViewLeft.getItems().add(song.getTitle());
+                labelOutp1.setText(song.getTitle());
+                labelOutp2.setText(song.getArtist().getArtistName());
+                labelOutp3.setText(song.getKind());
+                break;
+            } else if (song.getArtist().getArtistName().equals(textEnter.getText())) {
+                listViewLeft.getItems().add(song.getTitle());
+                labelOutp1.setText(song.getArtist().getFirstName());
+                labelOutp2.setText(song.getArtist().getLastName());
+                labelOutp3.setText(song.getKind());
             }
+
         }
-    }
+      }
     @FXML
     protected void CreatNewPlaylist(){
         BeatFlow.library.getPlaylists().add(new Playlist(nomPlaylist.getText()));
