@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Class that represent an account
+ */
 public class Account {
     private String id, password;
     private Boolean admin;

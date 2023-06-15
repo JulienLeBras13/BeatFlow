@@ -18,6 +18,8 @@
             <Button fx:id="btnChooseFile" layoutX="41.0" layoutY="409.0" mnemonicParsing="false" onAction="#btnChooseFile_Click" text="Choose MP3 file" />
             <Label fx:id="lblFileChosen" layoutX="14.0" layoutY="454.0" prefHeight="66.0" prefWidth="156.0" text="..." textAlignment="CENTER" />
             <Label fx:id="lblError" layoutX="18.0" layoutY="121.0" prefHeight="66.0" prefWidth="149.0" text="Error message : No error message" textFill="RED" visible="false" />
+            <Button fx:id="logout" layoutX="19.0" layoutY="41.0" mnemonicParsing="false" onAction="#goToInitView" text="Logout" />
+            <Button fx:id="userView" layoutX="94.0" layoutY="41.0" mnemonicParsing="false" onAction="#goToUserView" text="UserView" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="892.0" prefWidth="917.0">
          <children>

@@ -7,9 +7,7 @@ import java.util.ArrayList;
  */
 public class Song{
 
-    private String title, kind, imagePath, mp3Path;
-    // TODO : Find the type of link for the media (mp3, ...) (optional)
-    // TODO : Define how to link an attribute of a song to an image (ex : String "path to the image" ?)
+    private String title, kind;
     private Artist artist;
 
 

@@ -13,9 +13,14 @@ public class InitController {
     @FXML
     private Label id, password, errorID, errorPassword;
     @FXML
-    private TextField idInput, passwordInput;
+    private TextField idInput;
+    @FXML
+    private PasswordField passwordInput;
 
-
+    /**
+     * Function that will check the ID and password and then will load the adminView
+     * if the account got the access or the userView if he doesn't
+     */
     @FXML
     protected  void onLoginBtnClick(){
         boolean idCheck = false;

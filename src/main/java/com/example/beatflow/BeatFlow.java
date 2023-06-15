@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Main of the application, read the .csv files and create all Object and ArrayList<> useful for the application, call the InitView
+ */
 public class BeatFlow extends Application {
     public static Library library = new Library();
     public static Playlist rock = new Playlist("Rock", true);
@@ -27,32 +30,32 @@ public class BeatFlow extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // InitScene
-        FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
-        initScene = new Scene(fxmlLoaderInitScene.load(), 750, 450); // Scene scene = new Scene(fxmlLoader.load(), 1300, 900);
+        FXMLLoader fxmlLoaderInitScene = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        initScene = new Scene(fxmlLoaderInitScene.load(), 750, 450);
 
         // AdminScene
-        FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        FXMLLoader fxmlLoaderAdminScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewAdmin.fxml"));
         adminScene = new Scene(fxmlLoaderAdminScene.load(), viewSizeX, viewSizeY);
 
         // UserScene
-        FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml")); // FXMLLoader fxmlLoader = new FXMLLoader(BeatFlow.class.getResource("InitView.fxml"));
+        FXMLLoader fxmlLoaderUserScene = new FXMLLoader(BeatFlow.class.getResource("LibraryViewUser.fxml"));
         userScene = new Scene(fxmlLoaderUserScene.load(), viewSizeX, viewSizeY);
 
         stage.setTitle("BeatFlow");
-        stage.setScene(initScene); // stage.setScene(scene);
+        stage.setScene(initScene);
         stage.show();
 
         String line;
         String splitBy = ";";
 
         // try-catch for reading "data/accounts.csv" and add them to the ArrayList<Artist>
-        try { //parsing a CSV file into BufferedReader class constructor
+        try {
             BufferedReader brAccounts = new BufferedReader(new FileReader("data/accounts.csv"));
             brAccounts.readLine();
 
-            while ((line = brAccounts.readLine()) != null) { //returns a Boolean value
+            while ((line = brAccounts.readLine()) != null) {
                 boolean admin;
-                String[] buffedAccount = line.split(splitBy);    // use comma as separator
+                String[] buffedAccount = line.split(splitBy);
                 if (buffedAccount[2].equals("true")){
                     admin = true;
                 } else {
@@ -65,12 +68,12 @@ public class BeatFlow extends Application {
         }
 
         // try-catch for reading "data/artists.csv" and create new Artist and add them to the ArrayList<Artist>
-        try { //parsing a CSV file into BufferedReader class constructor
+        try {
             BufferedReader brArtists = new BufferedReader(new FileReader("data/artists.csv"));
             brArtists.readLine();
 
-            while ((line = brArtists.readLine()) != null) { //returns a Boolean value
-                String[] buffedArtist = line.split(splitBy);    // use comma as separator
+            while ((line = brArtists.readLine()) != null) {
+                String[] buffedArtist = line.split(splitBy);
                 library.getArtists().add(new Artist(buffedArtist[0], buffedArtist[1], buffedArtist[2]));
             }
         } catch (IOException e) {
@@ -78,12 +81,12 @@ public class BeatFlow extends Application {
         }
 
         // Same as before but for the Song.
-        try { //parsing a CSV file into BufferedReader class constructor
+        try {
             BufferedReader brSongs = new BufferedReader(new FileReader("data/songs.csv"));
             brSongs.readLine();
 
-            while ((line = brSongs.readLine()) != null) { //returns a Boolean value
-                String[] buffedSong = line.split(splitBy);    // use comma as separator
+            while ((line = brSongs.readLine()) != null) {
+                String[] buffedSong = line.split(splitBy);
                 library.getSongs().add(new Song(buffedSong[0], buffedSong[1], findArtist(library.getArtists(), buffedSong[2])));
             }
         } catch (IOException e) {
@@ -113,19 +116,6 @@ public class BeatFlow extends Application {
         library.getPlaylists().add(rock);
         library.getPlaylists().add(electro);
 
-        // Test temp TODO : DELETE THIS TEST WHEN NO LONGER NEEDED !
-        System.out.println("Test of the generation of the Library object.");
-        System.out.println("");
-        System.out.println("Title of the first song : " + library.getSongs().get(0).getTitle());
-        System.out.println("Artist name of the first song : " + library.getSongs().get(0).getArtist().getArtistName());
-        System.out.println("Kind of the 4th song : " + library.getSongs().get(3).getKind());
-        System.out.println("Artist name of the 1st artist : " + library.getArtists().get(0).getArtistName());
-        System.out.println("First name of the 2nd artist : " + library.getArtists().get(2).getFirstName());
-        System.out.println("Title of the 1st song in the list of songs of the 1st Artist : " + library.getArtists().get(0).getSongs().get(0).getTitle());
-        System.out.println("ID : " + accounts.get(0).getId());
-        System.out.println("Password : " + accounts.get(0).getPassword());
-        System.out.println("Admin : " + accounts.get(0).getAdmin());
-        System.out.println("Name of the 1st playlist : " + library.getPlaylists().get(0).getName());
     }
 
     /**
@@ -153,6 +143,12 @@ public class BeatFlow extends Application {
         return returnedArtist;
     }
 
+    /**
+     * Function to find if the song is existing in the database
+     * @param songs : ArrayList<Song> in witch the song is searched
+     * @param title : String of the title of the song searched
+     * @return the searched song
+     */
     public static Song findSong (ArrayList<Song> songs, String title) {
         Song returnedSong = null;
         ArrayList<String> titlesList = new ArrayList<>();

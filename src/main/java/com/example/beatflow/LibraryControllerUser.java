@@ -3,6 +3,7 @@ package com.example.beatflow;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import models.Artist;
 import models.Playlist;
 import models.Song;
@@ -16,7 +17,7 @@ public class LibraryControllerUser {
     @FXML
     private Label  labelOutp1,labelOutp2, labelOutp3, label1, label2, label3;
     @FXML
-    private Button buttonSearch, buttonAddToPlaylist, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder;
+    private Button buttonSearch, buttonAddToPlaylist, buttonNewPlaylist, actualizePlaylist, alphabeticalOrder, initView, adminView;
     @FXML
     private TextField textEnter, nomPlaylist;
     @FXML
@@ -24,8 +25,6 @@ public class LibraryControllerUser {
     private ArrayList<Song> selectedPlayList = new  ArrayList();
     private ArrayList<Song>  chargedPlaylist = new ArrayList<>();
     int indexOfSelectedPlaylist;
-    @FXML
-    private ArrayList<Artist> selectedMusic = new ArrayList() ;
     String sorted = "unsorted";
 
     /**
@@ -47,37 +46,38 @@ public class LibraryControllerUser {
      */
     @FXML
     protected void showTitles() {
-        // Display song in listview
-        selectedPlayList.clear();
-        listViewLeft.getItems().clear();
-        String playlistName = playlists.getSelectionModel().getSelectedItem();
-        //Display Library as default value
-        if (playlistName.equals("library")) {
-            selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
-        } else {
-            for (Playlist playlist : BeatFlow.library.getPlaylists()) {
-                if (playlist.getName().equals(playlistName)) {
-                    indexOfSelectedPlaylist = BeatFlow.library.getPlaylists().indexOf(playlist);
-                    if (!playlist.getFix()){
-                        selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
-                        chargedPlaylist = (ArrayList<Song>) BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getPlaylist().clone();
-                    } else {
-                        selectedPlayList = (ArrayList<Song>) BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getPlaylist().clone();
+            // Display song in listview
+            selectedPlayList.clear();
+            listViewLeft.getItems().clear();
+            String playlistName = playlists.getSelectionModel().getSelectedItem();
+            //Display Library as default value
+            if (playlistName.equals("library")) {
+                selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+                chargedPlaylist.clear();
+            } else {
+                for (Playlist playlist : BeatFlow.library.getPlaylists()) {
+                    if (playlist.getName().equals(playlistName)) {
+                        indexOfSelectedPlaylist = BeatFlow.library.getPlaylists().indexOf(playlist);
+                        if (!playlist.getFix()) {
+                            selectedPlayList = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+                            chargedPlaylist = (ArrayList<Song>) BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getPlaylist().clone();
+                        } else {
+                            selectedPlayList = (ArrayList<Song>) BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getPlaylist().clone();
+                        }
+                        break;
                     }
-                    break;
                 }
             }
-        }
-        // Display result in listView
-        listViewRight.getItems().clear();
-        if (!BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getFix()) {
-            for (Song song : chargedPlaylist) {
-                listViewRight.getItems().add(song.getTitle());
+            // Display result in listView
+            listViewRight.getItems().clear();
+            if (!BeatFlow.library.getPlaylists().get(indexOfSelectedPlaylist).getFix()) {
+                for (Song song : chargedPlaylist) {
+                    listViewRight.getItems().add(song.getTitle());
+                }
+            }//selected one item
+            for (Song song : selectedPlayList) {
+                listViewLeft.getItems().add(song.getTitle());
             }
-        }//selected one item
-        for(Song song :selectedPlayList){
-            listViewLeft.getItems().add(song.getTitle());
-        }
     }
 
     /**
@@ -102,14 +102,16 @@ public class LibraryControllerUser {
      */
     @FXML
     protected void showDataRight(){
-        int index = listViewRight.getSelectionModel().getSelectedIndex();
-        // show data title
-        Song song = selectedPlayList.get(index);
-        labelOutp1.setText(song.getTitle());
-        //Show data artis
-        labelOutp2.setText(song.getArtist().getArtistName());
-        //Show data kind
-        labelOutp3.setText(song.getKind());
+        for (Song song : selectedPlayList){
+            if (song.getTitle().equals(listViewRight.getSelectionModel().getSelectedItem())){
+                labelOutp1.setText(song.getTitle());
+                label1.setText("Title");
+                labelOutp2.setText(song.getArtist().getArtistName());
+                label2.setText("Artist");
+                labelOutp3.setText(song.getKind());
+                label3.setText("Kind");
+            }
+        }
     }
 
     /**
@@ -149,8 +151,11 @@ public class LibraryControllerUser {
      * Allows to create a playlist
      */
     @FXML
-    protected void CreatNewPlaylist(){
-        BeatFlow.library.getPlaylists().add(new Playlist(nomPlaylist.getText()));
+    protected void CreatNewPlaylist() {
+        if (!nomPlaylist.getText().isEmpty()){
+            BeatFlow.library.getPlaylists().add(new Playlist(nomPlaylist.getText()));
+            onActualizePlaylist();
+        }
     }
 
     /**
@@ -191,6 +196,23 @@ public class LibraryControllerUser {
                 Collections.sort(listViewLeft.getItems());
                 sorted = "Sorted";
         }
+    }
 
+    /**
+     * Load the adminView
+     */
+    @FXML
+    protected void goToAdminView(){
+        Stage window = (Stage) adminView.getScene().getWindow();
+        window.setScene(BeatFlow.adminScene);
+    }
+
+    /**
+     * Load the initView
+     */
+    @FXML
+    protected void goToInitView(){
+        Stage window = (Stage) initView.getScene().getWindow();
+        window.setScene(BeatFlow.initScene);
     }
 }

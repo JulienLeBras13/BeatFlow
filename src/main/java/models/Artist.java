@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 /**
- * Class Artist that define the firstname, lastname and the artist name.
+ * Class that an Artist
  */
 public class Artist {
     private String firstName, lastName, artistName;

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 // Using model files
@@ -49,7 +50,7 @@ public class LibraryControllerAdmin {
     @FXML
     private TextField txtArtistModify;
     @FXML
-    private Button btnUpdate;
+    private Button btnUpdate, logout, userView;
 
     // To delete a song
     @FXML
@@ -303,5 +304,23 @@ public class LibraryControllerAdmin {
             txtKindModify.setText("");
             lblDelete.setText("Song updated");
         }
+    }
+
+    /**
+     * Load the userView
+     */
+    @FXML
+    protected void goToUserView(){
+        Stage window = (Stage) userView.getScene().getWindow();
+        window.setScene(BeatFlow.userScene);
+    }
+
+    /**
+     * Load the initView
+     */
+    @FXML
+    protected void goToInitView(){
+        Stage window = (Stage) logout.getScene().getWindow();
+        window.setScene(BeatFlow.initScene);
     }
 }
