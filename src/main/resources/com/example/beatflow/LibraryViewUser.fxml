@@ -56,5 +56,6 @@
       <Button layoutX="216.0" layoutY="588.0" mnemonicParsing="false" text="Play" />
       <Button layoutX="216.0" layoutY="635.0" mnemonicParsing="false" text="Stop" />
       <Button fx:id="library" layoutX="226.0" layoutY="117.0" mnemonicParsing="false" text="Library" />
+      <Button fx:id="alphabeticalOrder" layoutX="339.0" layoutY="117.0" mnemonicParsing="false" onAction="#alphabeticalOrder" prefHeight="25.0" prefWidth="124.0" text="Alphabetical sort" />
    </children>
 </AnchorPane>

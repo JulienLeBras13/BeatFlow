@@ -21,6 +21,7 @@ public class LibraryControllerUser {
     private ArrayList<Song> selectedPlayList = new  ArrayList();
     @FXML
     private ArrayList<Artist> selectedMusic = new ArrayList() ;
+    String sorted = "unsorted";
 
     @FXML
     private Pane paneInformationMusic;
@@ -38,8 +39,7 @@ public class LibraryControllerUser {
             playlists.getItems().add(playlist.getName());
         }
     }
-   protected static void getSong(){
-   }
+
     @FXML
     protected void showTitles() {
         // Display song in listview
@@ -66,14 +66,23 @@ public class LibraryControllerUser {
     }
     @FXML
     protected void showData(){
-        int index = listViewTitle.getSelectionModel().getSelectedIndex();
+        int index; // = selectedPlayList.indexOf(listViewTitle.getSelectionModel());
+
+        for (Song song : selectedPlayList){
+            if (song.getTitle().equals(listViewTitle.getSelectionModel().getSelectedItem())){
+                dataTitle.setText(song.getTitle());
+                dataNameArtist.setText(song.getArtist().getArtistName());
+                dataKind.setText(song.getKind());
+            }
+        }
+        /*
         // show data title
         Song song = selectedPlayList.get(index);
         dataTitle.setText(song.getTitle());
         //Show data artis
         dataNameArtist.setText(song.getArtist().getArtistName());
         //Show data kind
-        dataKind.setText(song.getKind());
+        dataKind.setText(song.getKind());*/
 
     }
     @FXML
@@ -90,4 +99,17 @@ public class LibraryControllerUser {
     protected void AddInPlaylist(){
     }
 
+    @FXML
+    protected void alphabeticalOrder(){
+        switch (sorted){
+            case "Sorted" :
+                Collections.sort(listViewTitle.getItems(), Collections.reverseOrder());
+                sorted = "ReverseOrder";
+                break;
+            default :
+                Collections.sort(listViewTitle.getItems());
+                sorted = "Sorted";
+        }
+
+    }
 }
