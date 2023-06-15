@@ -37,6 +37,12 @@ public class LibraryControllerAdmin {
 
     // To show or modify songs data
     @FXML
+    private Label lblNameTitle;
+    @FXML
+    private Label lblKindTitle;
+    @FXML
+    private Label lblArtistTitle;
+    @FXML
     private TextField txtTitleModify;
     @FXML
     private TextField txtKindModify;
@@ -48,26 +54,25 @@ public class LibraryControllerAdmin {
     // To delete a song
     @FXML
     private Button btnDelete;
+    @FXML
+    private Label lblDelete;
 
-    // Showing songs
+    // Showing songs and kinds of songs
     @FXML
     private ListView lvSongsList;
 
     // Elements to use the listview
         // ArrayList for types of music
     private ArrayList<Song> selTypeOfMusic = new  ArrayList();
-        //
-
 
     /**
      * Action on the "Add to library" button click
      * Function that creates a new Song object with user written features
-     * @return void
      */
     @FXML
     protected void btnAdd_Click()
     {
-        if(!txtTitle.getText().isEmpty() && !txtArtist.getText().isEmpty())
+        if(!txtTitle.getText().isEmpty() && !txtArtist.getText().isEmpty() && !txtKind.getText().isEmpty())
         {
             // Song features
             String songTitle = txtTitle.getText().toString();
@@ -82,14 +87,14 @@ public class LibraryControllerAdmin {
             BeatFlow.library.getSongs().add(newSong);
 
             // Song created
-            lblError.setText("No error message");
+            lblError.setText("No error message\nSong added successfully");
             lblError.setTextFill((Paint.valueOf("green")));
             lblError.setVisible(true);
         }
         else
         {
             // If the title or artist field are empty
-            lblError.setText("Error message : \n No title or no artist \n chosen");
+            lblError.setText("Error message : \n No title, no kind or\n no artist chosen");
             lblError.setTextFill((Paint.valueOf("red")));
             lblError.setVisible(true);
         }
@@ -102,12 +107,12 @@ public class LibraryControllerAdmin {
         for (Song song0 : selTypeOfMusic) {
             lvSongsList.getItems().add(song0.getTitle());
         }
+        lblDelete.setText("...");
     }
 
     /**
      * Action on the "Choose MP3 file" button click
      * Function which open a file chooser to find the MP3 file to add to the database.
-     * @return void
      */
     @FXML
     protected void btnChooseFile_Click()
@@ -128,14 +133,13 @@ public class LibraryControllerAdmin {
         else
         {
             lblFileChosen.setText(selectedFile.getName());
-            // TODO : Stock the mp3 files
         }
+        lblDelete.setText("...");
     }
 
     /**
      * Action on the "Search" button click
      * Function that searches into Song list to find the user nearest value
-     * @return void
      */
     @FXML
     protected void btnSearch_Click()
@@ -148,16 +152,16 @@ public class LibraryControllerAdmin {
 
         // Activating delete function
         btnDelete.setVisible(true);
+        lblDelete.setText("...");
 
         // Searching music title
         if(BeatFlow.findSong(BeatFlow.library.getSongs(), searchedValue) != null)
         {
-
             // If song is found
             lvSongsList.getItems().add(lvSongsList.getItems().size(), searchedValue);
-
         }
-        // if the song isn't found
+
+        // If the Textfield is empty
         else if(txtSearch.getText().trim().isEmpty())
         {
             // Display song in listview
@@ -168,79 +172,135 @@ public class LibraryControllerAdmin {
                 lvSongsList.getItems().add(song.getTitle());
             }
         }
+        // if the song isn't found, try to search by artist
+        else if(BeatFlow.findArtist(BeatFlow.library.getArtists(), searchedValue) != null)
+        {
+            for(Song song : BeatFlow.library.getSongs())
+            {
+                if(song.getArtist().getArtistName().equals(searchedValue))
+                {
+                    lvSongsList.getItems().add(song.getTitle());
+
+                    // Modify the labels values
+                    lblNameTitle.setText("First name :");
+                    lblKindTitle.setText("Last name :");
+                    lblArtistTitle.setText("Artist name :");
+
+                    // Reactivating buttons
+                    btnDelete.setVisible(false);
+                    btnUpdate.setVisible(false);
+                    lblDelete.setVisible(false);
+
+                    // Modify the Textfields values
+                    txtArtistModify.setText(song.getArtist().getArtistName());
+                    txtKindModify.setText(song.getArtist().getLastName());
+                    txtTitleModify.setText(song.getArtist().getFirstName());
+                }
+            }
+        }
     }
 
     /**
      * Action on the click on a song into the songs list
      * Function that the goal is to show songs data into the Textfields on
      *  the right of the graphical view, then we can modify it
-     * @return void
      */
     @FXML
     protected void lvSongsList_Click()
     {
         // Identifying song in the list
-        int index = lvSongsList.getSelectionModel().getSelectedIndex();
-        Song song = selTypeOfMusic.get(index);
+        for(Song song : selTypeOfMusic)
+        {
+            if (song.getTitle().equals(lvSongsList.getSelectionModel().getSelectedItem()))
+            {
+                // Modify the labels values
+                lblNameTitle.setText("Title :");
+                lblKindTitle.setText("Kind :");
+                lblArtistTitle.setText("Artist :");
 
-        // Show data into Textfields
-        txtTitleModify.setText(song.getTitle());
-        txtArtistModify.setText(song.getArtist().getArtistName());
-        txtKindModify.setText(song.getKind());
+                // Reactivating buttons
+                btnDelete.setVisible(true);
+                btnUpdate.setVisible(true);
+                lblDelete.setVisible(true);
+
+                // Show data into Textfields
+                txtTitleModify.setText(song.getTitle());
+                txtArtistModify.setText(song.getArtist().getArtistName());
+                txtKindModify.setText(song.getKind());
+            }
+        }
     }
 
     /**
      * Action on the "Delete song" button click
      * Function which is used to delete a song
-     * @return void
      */
     @FXML
     protected void btnDelete_Click()
     {
         // Identifying the song then deleting
         int index = lvSongsList.getSelectionModel().getSelectedIndex();
-        Song song = selTypeOfMusic.get(index);
-        BeatFlow.library.getSongs().remove(song);
+        if(index >= 0)
+        {
+            Song song = selTypeOfMusic.get(index);
+            BeatFlow.library.getSongs().remove(song);
 
-        // Clearing the list
-        lvSongsList.getItems().clear();
-        // Updating songs list
-        selTypeOfMusic.clear();
-        selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
-        for (Song song1 : selTypeOfMusic) {
-            lvSongsList.getItems().add(song1.getTitle());
+            // Clearing the list
+            lvSongsList.getItems().clear();
+            // Updating songs list
+            selTypeOfMusic.clear();
+            selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+            for (Song song1 : selTypeOfMusic) {
+                lvSongsList.getItems().add(song1.getTitle());
+            }
+
+            // Clearing the Textfields on the right
+            txtTitleModify.setText("");
+            txtArtistModify.setText("");
+            txtKindModify.setText("");
+            lblDelete.setText("Song deleted");
         }
     }
 
     /**
      * Action on the "Update data" button click
      * Function which the purpose is to update data songs from user inputs
-     * @return void
      */
     @FXML
     protected void btnUpdate_Click()
     {
-        // Receiving data inputs
-        String userTitle = txtTitleModify.getText();
-        String userKind = txtKindModify.getText();
-        Artist userArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), txtArtistModify.getText());
+        // Verifying if any field isn't filled
+        if(!txtTitleModify.getText().isEmpty() && !txtKindModify.getText().isEmpty() && !txtArtistModify.getText().isEmpty())
+        {
+            // Receiving data inputs
+            String userTitle = txtTitleModify.getText();
+            String userKind = txtKindModify.getText();
+            Artist userArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), txtArtistModify.getText());
 
-        // Identifying the song then deleting
-        int index = lvSongsList.getSelectionModel().getSelectedIndex();
-        Song song = selTypeOfMusic.get(index);
+            // Identifying the song then deleting
+            int index = lvSongsList.getSelectionModel().getSelectedIndex();
+            Song song = selTypeOfMusic.get(index);
 
-        // Modifying songs data
-        BeatFlow.library.getSongs().get(index).setTitle(userTitle);
-        BeatFlow.library.getSongs().get(index).setKind(userKind);
-        BeatFlow.library.getSongs().get(index).setArtist(userArtist);
+            // Modifying songs data
+            BeatFlow.library.getSongs().get(index).setTitle(userTitle);
+            BeatFlow.library.getSongs().get(index).setKind(userKind);
+            BeatFlow.library.getSongs().get(index).setArtist(userArtist);
 
-        // Clearing the list
-        lvSongsList.getItems().clear();
-        // Updating songs list
-        selTypeOfMusic.clear();
-        selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
-        for (Song song2 : selTypeOfMusic) {
-            lvSongsList.getItems().add(song2.getTitle());
+            // Clearing the list
+            lvSongsList.getItems().clear();
+            // Updating songs list
+            selTypeOfMusic.clear();
+            selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
+            for (Song song2 : selTypeOfMusic)
+            {
+                lvSongsList.getItems().add(song2.getTitle());
+            }
+
+            // Clearing the Textfields on the left of the graphical view
+            txtTitleModify.setText("");
+            txtArtistModify.setText("");
+            txtKindModify.setText("");
+            lblDelete.setText("Song updated");
         }
     }
 }
