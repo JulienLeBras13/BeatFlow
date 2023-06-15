@@ -1,4 +1,4 @@
-Project : BeatFlow
+# Project : BeatFlow
 
 By : Amy Gilloz, François Clément, Julien Le Bras
 
