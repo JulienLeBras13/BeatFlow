@@ -165,6 +165,7 @@ public class LibraryControllerAdmin {
         else if(txtSearch.getText().trim().isEmpty())
         {
             // Display song in listview
+            lvSongsList.getItems().clear();
             selTypeOfMusic.clear();
             selTypeOfMusic = (ArrayList<Song>) BeatFlow.library.getSongs().clone();
             // Selection one item
@@ -277,14 +278,14 @@ public class LibraryControllerAdmin {
             String userKind = txtKindModify.getText();
             Artist userArtist = BeatFlow.findArtist(BeatFlow.library.getArtists(), txtArtistModify.getText());
 
-            // Identifying the song then deleting
-            int index = lvSongsList.getSelectionModel().getSelectedIndex();
-            Song song = selTypeOfMusic.get(index);
-
-            // Modifying songs data
-            BeatFlow.library.getSongs().get(index).setTitle(userTitle);
-            BeatFlow.library.getSongs().get(index).setKind(userKind);
-            BeatFlow.library.getSongs().get(index).setArtist(userArtist);
+            // Update data into the library from user data
+            for (Song song : BeatFlow.library.getSongs()){
+                if (song.getTitle().equals(lvSongsList.getSelectionModel().getSelectedItem())){
+                    song.setTitle(userTitle);
+                    song.setKind(userKind);
+                    song.setArtist(userArtist);
+                }
+            }
 
             // Clearing the list
             lvSongsList.getItems().clear();
